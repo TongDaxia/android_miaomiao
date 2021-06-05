@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">猫狗交流器</string>
+    <string name="message">邮局</string>
+    <string name="contact">爱宠对话</string>
+    <string name="dynamic">广场</string>
+    <string name="username">用户名</string>
+    <string name="password">输入密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register">注册</string>
+    <string name="next">下一步</string>
+    <string name="register_mail">用邮箱注册</string>
+    <string name="settingAccount_topic">设置用户名和密码</string>
+    <string name="password_repeat">再次输入密码</string>
+    <string name="register_auth">验证码已发送到你的邮箱</string>
+    <string name="send">发送</string>
+    <string name="remember_password">记住密码</string>
+</resources>
