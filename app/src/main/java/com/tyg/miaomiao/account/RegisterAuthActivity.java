@@ -65,17 +65,7 @@ public class RegisterAuthActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(auth.getText())) {
                     if (preVerificationStr.equals(auth.getText().toString()) || "007".equals(auth.getText().toString())) {
                         //todo 调服务端进行注册
-                        boolean register = register();
-                        if (register) {
-                            Intent intent = new Intent(RegisterAuthActivity.this,
-                                    SettingAccountActivity.class);
-                            intent.putExtra("email", preMailStr);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(RegisterAuthActivity.this, "服务繁忙，请重试！",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
+                        register();
                     } else {
                         Toast.makeText(RegisterAuthActivity.this, "验证码有误，请重新输入",
                                 Toast.LENGTH_LONG).show();
@@ -113,24 +103,31 @@ public class RegisterAuthActivity extends BaseActivity {
     /**
      * 注册
      */
-    private boolean register() {
+    private void register() {
 
         try {
             RegistDTO registDTO = new RegistDTO();
             registDTO.setEmail(preMailStr);
             registDTO.setPassword(preVerificationStr);
-            //todo 登录的地方
-            String login_url = Config.server_ip + "/maomao/user/register";
-            Log.d("userRegistBegin", login_url + ":" + registDTO.toString());
-            String result = OkHttp.post(login_url, registDTO.toString());
+            //fixme 注册的地方为什么一直在报错
+            String register_url = Config.server_ip + "/maomao/user/regist";
+            Log.d("userRegistBegin", register_url + ":" + registDTO.toString());
+            String result = OkHttp.post(register_url, registDTO.toString());
             JSONObject res = new JSONObject(result);
             if (ReturnCode.SUCCESS.equals(res.getString("code"))) {
-                return true;
+                Intent intent = new Intent(RegisterAuthActivity.this,
+                        SettingAccountActivity.class);
+                intent.putExtra("email", preMailStr);
+                startActivity(intent);
+            } else {
+                Toast.makeText(RegisterAuthActivity.this, "服务繁忙，请重试！",
+                        Toast.LENGTH_LONG).show();
             }
-        } catch (JSONException | IOException e) {
+
+        } catch (JSONException |
+                IOException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
 }
