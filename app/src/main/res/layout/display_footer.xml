@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:padding="6dp"
     android:background="#fff">
+
+    <!--邮局-信箱-->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -15,7 +17,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:clickable="false"
-            android:src="@drawable/xiaoxi"
+            android:src="@drawable/xinxiang"
             android:id="@+id/footer_message_icon"
            />
         <TextView
@@ -25,6 +27,8 @@
             android:id="@+id/footer_message_text"/>
     </LinearLayout>
 
+
+    <!--猫言狗语-->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -36,7 +40,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:clickable="false"
-            android:src="@drawable/lianxiren"
+            android:src="@drawable/maogou"
             android:id="@+id/footer_contact_icon"/>
         <TextView
             android:layout_width="wrap_content"
@@ -45,24 +49,49 @@
             android:id="@+id/footer_contact_text"/>
     </LinearLayout>
 
+    <!--就是玩-->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:id="@+id/footer_dynamic_layout">
+        android:id="@+id/footer_photo_layout">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:clickable="false"
+            android:src="@drawable/photo_active"
+            android:id="@+id/footer_photo_icon"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo"
+            android:id="@+id/footer_photo_text"/>
+    </LinearLayout>
+
+
+
+    <!--广场-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/footer_guangchang_layout">
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:clickable="false"
-            android:src="@drawable/dongtai"
-            android:id="@+id/footer_dynamic_icon"/>
+            android:src="@drawable/guangchang"
+            android:id="@+id/footer_guangchang_icon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dynamic"
-            android:id="@+id/footer_dynamic_text"/>
+            android:text="@string/guangchang"
+            android:id="@+id/footer_guangchang_text"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,25 +23,30 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.tyg.miaomiao.account.LoginActivity;
 import com.tyg.miaomiao.display.ContactFragment;
-import com.tyg.miaomiao.display.DynamicFragment;
+import com.tyg.miaomiao.display.GuangchangFragment;
 import com.tyg.miaomiao.display.MessageFragment;
+import com.tyg.miaomiao.display.PhotoFragment;
 
 import java.util.List;
 
 public class MainActivity extends BaseFragment implements View.OnClickListener {
 
-    private Fragment messageFragment;
+    private Fragment xinxiangFragment;
     private Fragment contactFragment;
-    private Fragment dynamicFragment;
-    private ImageView messageBtn;
+    private Fragment photoFragment;
+    private Fragment guangchangFragment;
+    private ImageView xinxiangBtn;
     private ImageView contactBtn;
-    private ImageView dynamicBtn;
+    private ImageView photoBtn;
+    private ImageView guangchangBtn;
     private TextView messageText;
     private TextView contactText;
-    private TextView dynamicText;
+    private TextView photoText;
+    private TextView guangchangText;
     private LinearLayout messageLayout;
     private LinearLayout contactLayout;
-    private LinearLayout dynamicLayout;
+    private LinearLayout photoLayout;
+    private LinearLayout guangchangLayout;
     private Button offline;
     private FragmentTransaction fragmentTransaction;
 
@@ -61,34 +67,45 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
 
     private void initView() {
         preferences = this.getSharedPreferences("online", Context.MODE_MULTI_PROCESS);
-        online = preferences.getBoolean("online", true);
+        online = preferences.getBoolean("online", false);
+        Log.i("preferencesonline", String.valueOf(online));
+        Boolean online2 = preferences.getBoolean("online", false);
+        Log.i("preferencesonline2", String.valueOf(online2));
 
         //没有登录强制跳转登录页面
 //        if(!online){
 //            finish();
 //            startActivity(new Intent(this, LoginActivity.class));
 //        }
-        messageBtn = findViewById(R.id.footer_message_icon);
+        xinxiangBtn = findViewById(R.id.footer_message_icon);
         contactBtn = findViewById(R.id.footer_contact_icon);
-        dynamicBtn = findViewById(R.id.footer_dynamic_icon);
+        photoBtn = findViewById(R.id.footer_photo_icon);
+        guangchangBtn = findViewById(R.id.footer_guangchang_icon);
 
         messageText = findViewById(R.id.footer_message_text);
         contactText = findViewById(R.id.footer_contact_text);
-        dynamicText = findViewById(R.id.footer_dynamic_text);
+        photoText = findViewById(R.id.footer_photo_text);
+        guangchangText = findViewById(R.id.footer_guangchang_text);
 
         messageLayout = findViewById(R.id.footer_message_layout);
         contactLayout = findViewById(R.id.footer_contact_layout);
-        dynamicLayout = findViewById(R.id.footer_dynamic_layout);
+        photoLayout = findViewById(R.id.footer_photo_layout);
+        guangchangLayout = findViewById(R.id.footer_guangchang_layout);
 
         headerText = findViewById(R.id.header_text);
-        online = false;
         offline = findViewById(R.id.offline);
+
+        if (online) {
+            offline.setVisibility(View.GONE);
+        }
+
     }
 
     private void initEvent() {
         messageLayout.setOnClickListener(this);
         contactLayout.setOnClickListener(this);
-        dynamicLayout.setOnClickListener(this);
+        photoLayout.setOnClickListener(this);
+        guangchangLayout.setOnClickListener(this);
         offline.setOnClickListener(this);
     }
 
@@ -102,8 +119,11 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
             case R.id.footer_contact_layout:
                 setSelected(1);
                 break;
-            case R.id.footer_dynamic_layout:
+            case R.id.footer_photo_layout:
                 setSelected(2);
+                break;
+            case R.id.footer_guangchang_layout:
+                setSelected(3);
                 break;
             case R.id.offline:
                 editor = preferences.edit();
@@ -125,12 +145,12 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
         hideFragment(fragmentTransaction);//隐藏所有fragment
         switch (i) {
             case 0:
-                if (messageFragment == null) {
-                    messageFragment = new MessageFragment();
-                    fragmentTransaction.add(R.id.main_layout_frame, messageFragment);
+                if (xinxiangFragment == null) {
+                    xinxiangFragment = new MessageFragment();
+                    fragmentTransaction.add(R.id.main_layout_frame, xinxiangFragment);
                 }
-                fragmentTransaction.show(messageFragment);
-                messageBtn.setImageResource(R.drawable.xiaoxi_active);
+                fragmentTransaction.show(xinxiangFragment);
+                xinxiangBtn.setImageResource(R.drawable.xinxiang_active);
                 messageText.setTextColor(Color.parseColor("#60008A"));
                 headerText.setText(messageText.getText());
                 break;
@@ -140,19 +160,29 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                     fragmentTransaction.add(R.id.main_layout_frame, contactFragment);
                 }
                 fragmentTransaction.show(contactFragment);
-                contactBtn.setImageResource(R.drawable.lianxiren_active);
+                contactBtn.setImageResource(R.drawable.maogou_active);
                 contactText.setTextColor(Color.parseColor("#60008A"));
                 headerText.setText(contactText.getText());
                 break;
             case 2:
-                if (dynamicFragment == null) {
-                    dynamicFragment = new DynamicFragment();
-                    fragmentTransaction.add(R.id.main_layout_frame, dynamicFragment);
+                if (photoFragment == null) {
+                    photoFragment = new PhotoFragment();
+                    fragmentTransaction.add(R.id.main_layout_frame, photoFragment);
                 }
-                fragmentTransaction.show(dynamicFragment);
-                dynamicBtn.setImageResource(R.drawable.dongtai_active);
-                dynamicText.setTextColor(Color.parseColor("#60008A"));
-                headerText.setText(dynamicText.getText());
+                fragmentTransaction.show(photoFragment);
+                photoBtn.setImageResource(R.drawable.photo_active);
+                photoText.setTextColor(Color.parseColor("#60008A"));
+                headerText.setText(photoText.getText());
+                break;
+            case 3:
+                if (guangchangFragment == null) {
+                    guangchangFragment = new GuangchangFragment();
+                    fragmentTransaction.add(R.id.main_layout_frame, guangchangFragment);
+                }
+                fragmentTransaction.show(guangchangFragment);
+                guangchangBtn.setImageResource(R.drawable.guangchang_active);
+                guangchangText.setTextColor(Color.parseColor("#60008A"));
+                headerText.setText(guangchangText.getText());
                 break;
         }
         fragmentTransaction.commit();
@@ -160,24 +190,30 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
 
     //隐藏Fragment
     private void hideFragment(FragmentTransaction fragmentTransaction) {
-        if (messageFragment != null) {
-            fragmentTransaction.hide(messageFragment);
+        if (xinxiangFragment != null) {
+            fragmentTransaction.hide(xinxiangFragment);
         }
         if (contactFragment != null) {
             fragmentTransaction.hide(contactFragment);
         }
-        if (dynamicFragment != null) {
-            fragmentTransaction.hide(dynamicFragment);
+        if (photoFragment != null) {
+            fragmentTransaction.hide(photoFragment);
+        }
+        if (guangchangFragment != null) {
+            fragmentTransaction.hide(guangchangFragment);
         }
     }
 
     private void resetImgText() {
-        messageBtn.setImageResource(R.drawable.xiaoxi);
-        contactBtn.setImageResource(R.drawable.lianxiren);
-        dynamicBtn.setImageResource(R.drawable.dongtai);
+        xinxiangBtn.setImageResource(R.drawable.xinxiang);
+        contactBtn.setImageResource(R.drawable.maogou);
+        photoBtn.setImageResource(R.drawable.photo);
+        guangchangBtn.setImageResource(R.drawable.guangchang);
+
         messageText.setTextColor(Color.parseColor("#cdcdcd"));
         contactText.setTextColor(Color.parseColor("#cdcdcd"));
-        dynamicText.setTextColor(Color.parseColor("#cdcdcd"));
+        photoText.setTextColor(Color.parseColor("#cdcdcd"));
+        guangchangText.setTextColor(Color.parseColor("#cdcdcd"));
     }
 
     private void setStatusBarColor(Activity activity, int statusColor) {

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">猫狗交流器</string>
     <string name="message">邮局</string>
-    <string name="contact">爱宠对话</string>
-    <string name="dynamic">广场</string>
+    <string name="contact">猫言狗语</string>
+    <string name="photo">就是玩</string>
+    <string name="guangchang">广场</string>
     <string name="username">用户名</string>
     <string name="password">输入密码</string>
     <string name="forget_password">忘记密码</string>

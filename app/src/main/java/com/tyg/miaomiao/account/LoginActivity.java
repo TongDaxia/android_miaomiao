@@ -30,10 +30,10 @@ import com.tyg.miaomiao.BaseActivity;
 import com.tyg.miaomiao.Config;
 import com.tyg.miaomiao.MainActivity;
 import com.tyg.miaomiao.R;
+import com.tyg.miaomiao.common.ReturnCode;
 import com.tyg.miaomiao.info.dto.LoginDTO;
 import com.tyg.miaomiao.utils.OkHttp;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -108,7 +108,7 @@ public class LoginActivity extends BaseActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                usernameAndPassword();
+                login();
             }
         });
         showHide.setOnClickListener(new View.OnClickListener() {
@@ -181,9 +181,12 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void usernameAndPassword() {
-        final String user = String.valueOf(username.getText());
-        final String pass = String.valueOf(password.getText());
+    /**
+     * 用户登录
+     */
+    private void login() {
+        final String userStr = String.valueOf(username.getText());
+        final String passStr = String.valueOf(password.getText());
 
         new Thread(new Runnable() {
             @Override
@@ -191,46 +194,35 @@ public class LoginActivity extends BaseActivity {
                 String result;
                 try {
                     LoginDTO loginDTO = new LoginDTO();
-                    loginDTO.setPhone(user);
-                    loginDTO.setPassword(pass);
+                    loginDTO.setPhone(userStr);
+                    loginDTO.setPassword(passStr);
 
                     //todo 登录的地方
                     String login_url = Config.server_ip + "/maomao/user/login";
                     Log.d("userLoginBegin", login_url + ":" + loginDTO.toString());
                     result = OkHttp.post(login_url, loginDTO.toString());
                     JSONObject res = new JSONObject(result);
-                    JSONArray resArry = res.getJSONArray("code");
-                    String p;
-                    if (resArry.length() > 0) {
-                        JSONObject out = (JSONObject) res.getJSONArray("msg").get(0);
-                        p = (String) out.get("password");
-                        //Log.d("user1", p);
-                        if (p.equals(pass)) {
-                            editor = preferences.edit();
-                            if (rememberPassword.isChecked()) {
-                                editor.putBoolean("remember_password", true);
-                                editor.putString("password", pass);
-                            } else
-                                editor.clear();
-                            editor.putString("username", user);
-                            editor.putBoolean("online", true);
-                            editor.apply();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Message message = new Message();
-                            message.what = UPDATE_TEXT;
-                            handler.sendMessage(message);
-                        }
+                    if (ReturnCode.SUCCESS.equals(res.getString("code"))) {
+                        editor = preferences.edit();
+                        if (rememberPassword.isChecked()) {
+                            editor.putBoolean("remember_password", true);
+                            editor.putString("password", passStr);
+                        } else
+                            editor.clear();
+                        editor.putString("username", userStr);
+
+                        editor.putBoolean("online", true);
+                        editor.apply();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     } else {
                         Message message = new Message();
                         message.what = UPDATE_TEXT;
                         handler.sendMessage(message);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
             }

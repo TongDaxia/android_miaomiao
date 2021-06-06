@@ -36,4 +36,5 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('src/main/res/gradle-wrapper.jar')
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 }
