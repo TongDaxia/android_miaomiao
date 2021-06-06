@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -42,6 +43,9 @@ public class RegisterAuthActivity extends BaseActivity {
 
     public static final int UPDATE_TEXT = 1;
 
+    /**
+     * todo 这个做什么用的还需要研究
+     */
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -158,7 +162,9 @@ public class RegisterAuthActivity extends BaseActivity {
                         Message message = new Message();
                         message.what = UPDATE_TEXT;
                         handler.sendMessage(message);
+                        Looper.prepare();
 //                        Toast.makeText(RegisterAuthActivity.this, "服务繁忙，请重试！", Toast.LENGTH_LONG).show();
+                        Looper.loop();
                     }
 
                 } catch (JSONException |
