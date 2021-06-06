@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -151,20 +150,19 @@ public class RegisterAuthActivity extends BaseActivity {
                     JSONObject resObject = new JSONObject(result);
 
                     if (ReturnCode.SUCCESS.equals(resObject.getString("code"))) {
-
                         Intent intent = new Intent(RegisterAuthActivity.this, SettingAccountActivity.class);
+                        //todo 下个页面应该传递userId
                         intent.putExtra("email", mailSTr);
                         startActivity(intent);
                         finish();
-
                     } else {
                         //todo 注册失败的提示
                         Message message = new Message();
                         message.what = UPDATE_TEXT;
                         handler.sendMessage(message);
-                        Looper.prepare();
+//                        Looper.prepare();
 //                        Toast.makeText(RegisterAuthActivity.this, "服务繁忙，请重试！", Toast.LENGTH_LONG).show();
-                        Looper.loop();
+//                        Looper.loop();
                     }
 
                 } catch (JSONException |
