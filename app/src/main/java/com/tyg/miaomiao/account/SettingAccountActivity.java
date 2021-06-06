@@ -21,6 +21,9 @@ import com.tyg.miaomiao.utils.OkHttp;
 
 import java.io.IOException;
 
+/**
+ * todo 产品优化，本页面应该可以跳过！
+ */
 public class SettingAccountActivity extends BaseActivity {
 
     private EditText username;
@@ -44,7 +47,6 @@ public class SettingAccountActivity extends BaseActivity {
         WebView webView = findViewById(R.id.web);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        //todo 初始化的地方
         Log.d("----初始化的地方--------", "");
         webView.loadUrl(Config.server_ip);
         mail = getIntent().getStringExtra("email");
@@ -62,14 +64,13 @@ public class SettingAccountActivity extends BaseActivity {
                 if ((!TextUtils.isEmpty(username.getText())) &&
                         (!TextUtils.isEmpty(password.getText())) &&
                         (!TextUtils.isEmpty(password_repeat.getText())) &&
-                        (String.valueOf(password.getText())
-                                .equals(String.valueOf(password_repeat.getText())))) {
+                        (String.valueOf(password.getText()).equals(String.valueOf(password_repeat.getText())))) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            //todo 注册么？
+                            //todo 设置用户信息
                             StringBuilder url = new StringBuilder(Config.server_ip);
-                            url.append("/account");
+                            url.append("/maomao");
                             url.append("?");
                             url.append("username=" + username.getText());
                             url.append("&");

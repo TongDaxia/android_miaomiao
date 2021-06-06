@@ -42,6 +42,7 @@ import java.io.IOException;
 public class LoginActivity extends BaseActivity {
 
     public static final int UPDATE_TEXT = 1;
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
