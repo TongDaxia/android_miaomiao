@@ -14,4 +14,8 @@
 
     <color name="white">#fff</color>
 
+
+    <color name="theme">#FF03A9F4</color>
+    <color name="theme_pressed">#44a7d4</color>
+
 </resources>

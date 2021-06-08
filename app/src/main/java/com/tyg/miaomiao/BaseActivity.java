@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 import com.tyg.miaomiao.account.LoginActivity;
 
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
     private ForceOfflineReceiver receiver;
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -41,6 +41,13 @@ public class BaseActivity extends Activity {
         }
     }
 
+
+//    protected abstract int getLayoutId();
+//    protected abstract void initView();
+//    protected abstract void initData();
+
+
+
     protected void onDestroy(){
         super.onDestroy();
         ActivityCollector.removeActivity(this);
@@ -64,4 +71,10 @@ public class BaseActivity extends Activity {
             builder.show();
         }
     }
+
+
+
+
+
+
 }

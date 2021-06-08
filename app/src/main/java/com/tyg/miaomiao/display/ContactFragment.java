@@ -2,10 +2,8 @@ package com.tyg.miaomiao.display;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Camera;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 //todo Fragment 是个什么东西
 //是一种可以嵌入在活动中的UI片段，
@@ -38,20 +34,17 @@ public class ContactFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private List<String> contactsList = new ArrayList<>();
     private View view;
+    private final int READ_CONTACTS_REQUEST_CODE = 1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.display_contact, container, false);
-
+        view = inflater.inflate(R.layout.display_contact_page, container, false);
         ListView contactView = view.findViewById(R.id.contact_listView);
-
-        adapter = new ArrayAdapter<>(view.getContext(),
-                android.R.layout.simple_list_item_1, contactsList);
-
+        adapter = new ArrayAdapter<>(view.getContext(),android.R.layout.simple_list_item_1, contactsList);
         contactView.setAdapter(adapter);
         if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions((Activity) view.getContext(), new String[]{Manifest.permission.READ_CONTACTS}, 1);
+            ActivityCompat.requestPermissions((Activity) view.getContext(), new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_REQUEST_CODE);
         } else {
             readContacts();
         }
@@ -93,7 +86,7 @@ public class ContactFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case 1:
+            case READ_CONTACTS_REQUEST_CODE:
                 Log.d("onRequestPermission:", "onRequestPermissionsResult: ");
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     readContacts();

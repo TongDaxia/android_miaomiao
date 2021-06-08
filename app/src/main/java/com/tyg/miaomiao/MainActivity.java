@@ -1,10 +1,13 @@
 package com.tyg.miaomiao;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,16 +20,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.tyg.miaomiao.account.LoginActivity;
+import com.tyg.miaomiao.display.CameraVideoActivity;
 import com.tyg.miaomiao.display.ContactFragment;
 import com.tyg.miaomiao.display.GuangchangFragment;
 import com.tyg.miaomiao.display.MessageFragment;
-import com.tyg.miaomiao.display.PhotoFragment;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RequestExecutor;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class MainActivity extends BaseFragment implements View.OnClickListener {
@@ -165,14 +174,25 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 headerText.setText(contactText.getText());
                 break;
             case 2:
-                if (photoFragment == null) {
-                    photoFragment = new PhotoFragment();
-                    fragmentTransaction.add(R.id.main_layout_frame, photoFragment);
-                }
-                fragmentTransaction.show(photoFragment);
+//                startActivity(new Intent(MainActivity.this, PhotoFragment.class));
+//                if (photoFragment == null) {
+//                    photoFragment = new PhotoFragment();
+//                    fragmentTransaction.add(R.id.main_layout_frame, photoFragment);
+//                }
+//                fragmentTransaction.show(photoFragment);
                 photoBtn.setImageResource(R.drawable.photo_active);
                 photoText.setTextColor(Color.parseColor("#60008A"));
                 headerText.setText(photoText.getText());
+
+                requestPermission();
+
+                // todo  设置关闭 移动网络 ?
+//                setDataConnectionState(this, false);
+
+//                Intent intentVideo = new Intent(this, CameraVideoActivity.class);
+//                startActivity(intentVideo);
+
+
                 break;
             case 3:
                 if (guangchangFragment == null) {
@@ -181,12 +201,66 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 }
                 fragmentTransaction.show(guangchangFragment);
                 guangchangBtn.setImageResource(R.drawable.guangchang_active);
-                guangchangText.setTextColor(Color.parseColor("#60008A"));
-                headerText.setText(guangchangText.getText());
+                //todo 颜色统一
+                guangchangText.setTextColor( Color.parseColor("#60008A"));
+                 headerText.setText(guangchangText.getText());
                 break;
         }
         fragmentTransaction.commit();
     }
+
+    @SuppressLint("WrongConstant")
+    public static void setDataConnectionState(Context cxt, boolean state) {
+        ConnectivityManager connectivityManager = null;
+        Class connectivityManagerClz = null;
+        try {
+            connectivityManager = (ConnectivityManager) cxt
+                    .getSystemService("connectivity");
+            connectivityManagerClz = connectivityManager.getClass();
+            Method method = connectivityManagerClz.getMethod(
+                    "setMobileDataEnabled", new Class[]{boolean.class});
+            method.invoke(connectivityManager, state);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 动态申请
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void requestPermission() {
+        AndPermission.with(this)
+                .permission(Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO)
+                .rationale(new Rationale() {
+                    @Override
+                    public void showRationale(Context context, List<String> permissions, RequestExecutor executor) {
+                        executor.execute();
+                    }
+                })
+                .onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        Log.e("requestPermission", "用户给权限");
+                    }
+                })
+//                .onDenied(new Action() {
+//                    @Override
+//                    public void onAction(List<String> permissions) {
+//                        if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, permissions)) {
+//                            // 打开权限设置页
+//                            AndPermission.permissionSetting(MainActivity.this).execute();
+//                            return;
+//                        }
+//                        Log.e("requestPermission", "用户拒绝权限");
+//                    }
+//                })
+                .start();
+    }
+
 
     //隐藏Fragment
     private void hideFragment(FragmentTransaction fragmentTransaction) {

@@ -18,10 +18,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+
+        targetCompatibility JavaVersion.VERSION_1_8
+
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+//    implementation 'com.android.support:appcompat-v7:27.1.1'
+    // butterknife
+//    implementation 'com.jakewharton:butterknife:8.8.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    // permission
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+//    implementation 'com.android.support:exifinterface:27.1.1'
+    // api
+    implementation 'com.yanzhenjie.andserver:api:2.0.4'
+    annotationProcessor 'com.yanzhenjie.andserver:processor:2.0.4'
+    // load json
+    implementation 'com.alibaba:fastjson:1.2.48'
+    implementation 'com.yanzhenjie:loading:1.0.0'
+
+
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
@@ -37,4 +66,8 @@ dependencies {
     implementation files('src/main/res/gradle-wrapper.jar')
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
+//倒时器
+    api "io.reactivex.rxjava2:rxjava:2.1.0"
+    api "io.reactivex.rxjava2:rxandroid:2.1.0"
 }

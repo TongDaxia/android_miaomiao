@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tyg.miaomiao">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -16,6 +17,7 @@
         <activity android:name=".display.LocationActivity"></activity>
 
         <activity android:name=".display.ChatPageActivity" />
+        <activity android:name=".display.CameraVideoActivity" />
 
         <activity android:name=".account.RegisterAuthActivity" />
         <activity android:name=".account.SettingAccountActivity" />
