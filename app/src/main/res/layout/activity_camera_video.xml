@@ -12,7 +12,7 @@
         android:scaleType="fitCenter"
         android:visibility="gone" />
 
-    <camera.cn.cameramaster.view.AutoFitTextureView
+    <com.tyg.miaomiao.view.AutoFitTextureView
         android:id="@+id/video_texture"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -84,7 +84,7 @@
         android:src="@mipmap/ic_delete"
         android:visibility="gone" />
 
-    <camera.cn.cameramaster.view.AutoLocateHorizontalView
+    <com.tyg.miaomiao.view.AutoLocateHorizontalView
         android:id="@+id/video_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -319,7 +319,7 @@
                     android:src="@mipmap/ic_camera_wb_warm_fluorescent"/>
             </LinearLayout>
 
-            <camera.cn.cameramaster.view.AwbSeekBar
+            <com.tyg.miaomiao.view.AwbSeekBar
                 android:id="@+id/sb_awb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -338,12 +338,13 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_effect_list"
+<!--            <android.support.v7.widget.RecyclerView-->
+            <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_effect_list"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 
@@ -356,12 +357,13 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_sense_list"
+<!--            <android.support.v7.widget.RecyclerView-->
+            <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sense_list"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 

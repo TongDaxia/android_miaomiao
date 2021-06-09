@@ -187,11 +187,10 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 requestPermission();
 
                 // todo  设置关闭 移动网络 ?
-//                setDataConnectionState(this, false);
+                setDataConnectionState(this, false);
 
-//                Intent intentVideo = new Intent(this, CameraVideoActivity.class);
-//                startActivity(intentVideo);
-
+                Intent intentVideo = new Intent(this, CameraVideoActivity.class);
+                startActivity(intentVideo);
 
                 break;
             case 3:
