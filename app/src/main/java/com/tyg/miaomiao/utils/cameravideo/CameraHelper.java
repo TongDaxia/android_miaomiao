@@ -25,6 +25,7 @@ import android.media.ImageReader;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
  import android.util.Log;
@@ -1415,14 +1416,15 @@ public class CameraHelper implements ICamera2, AwbSeekBar.OnAwbSeekBarChangeList
     }
 
     /**
+     * todo
      * 图片拍照的路径
      *
      * @return 图片路径
      */
     public String getPhotoFilePath() {
-//        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsoluteFile();
-//        return (dir == null ? "" : (dir.getAbsolutePath() + "/")) + System.currentTimeMillis() + ".jpeg";
-        return String.valueOf(new File(mContext.getExternalFilesDir(null), System.currentTimeMillis() + ".jpg"));
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsoluteFile();
+        return (dir == null ? "" : (dir.getAbsolutePath() + "/")) + System.currentTimeMillis() + ".jpeg";
+//        return String.valueOf(new File(mContext.getExternalFilesDir(null), System.currentTimeMillis() + ".jpg"));
     }
 
     /**

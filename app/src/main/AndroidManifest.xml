@@ -17,7 +17,7 @@
         <activity android:name=".display.LocationActivity"></activity>
 
         <activity android:name=".display.ChatPageActivity" />
-        <activity android:name=".display.CameraVideoActivity" />
+        <activity android:name=".display.photo.CameraVideoActivity" />
 
         <activity android:name=".account.RegisterAuthActivity" />
         <activity android:name=".account.SettingAccountActivity" />

@@ -35,8 +35,8 @@ public class MessageFragment extends Fragment {
         return view;
     }
     private void initMessage() {
-        Message friend1 = new Message(R.drawable.head_portrait, "略略略",
-                    "恩恩", "20:15");
+        Message friend1 = new Message(R.drawable.head_portrait, "麻豹",
+                    "汪汪汪", "20:15");
         messageList.add(friend1);
 //        for (int i=0;i<2;i++) {
 //            Message friend1 = new Message(R.drawable.head_portrait, "略略略",

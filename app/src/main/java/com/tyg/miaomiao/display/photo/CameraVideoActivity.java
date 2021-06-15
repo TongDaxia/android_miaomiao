@@ -1,4 +1,4 @@
-package com.tyg.miaomiao.display;
+package com.tyg.miaomiao.display.photo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -92,14 +92,18 @@ public class CameraVideoActivity extends PhotoBaseActivity implements IVideoCont
     ImageView videoPhoto;
     @BindView(R.id.video_texture)
     AutoFitTextureView videoTexture;
+    //
     @BindView(R.id.video_record_seek_bar)
     SeekBar videoRecordSeekBar;
     @BindView(R.id.video_time)
     TextView videoTime;
     @BindView(R.id.video_switch_flash)
     ImageView videoSwitchFlash;
+
+    //右上角转换摄像头
     @BindView(R.id.video_switch_camera)
     ImageView videoSwitchCamera;
+
     @BindView(R.id.video_play)
     ImageButton videoPlay;
     @BindView(R.id.video_delete)
@@ -231,7 +235,7 @@ public class CameraVideoActivity extends PhotoBaseActivity implements IVideoCont
      */
     private FoucesAnimation mFoucesAnimation;
     /**
-     * 前 后 摄像头标识
+     * 默认的前后摄像头标识
      */
     private ICamera2.CameraType mNowCameraType = ICamera2.CameraType.BACK;
     /**
@@ -560,7 +564,7 @@ public class CameraVideoActivity extends PhotoBaseActivity implements IVideoCont
     }
 
     /**
-     * 点击事件
+     * 切换摄像头，闪光灯开关的点击事件
      *
      * @param view view
      */
@@ -579,6 +583,7 @@ public class CameraVideoActivity extends PhotoBaseActivity implements IVideoCont
                 }
                 mCameraTouch.resetScale();
                 break;
+                //闪光灯开关
             case R.id.video_switch_flash:
                 Object o = videoSwitchFlash.getTag();
                 if (o == null || ((int) o) == 0) {

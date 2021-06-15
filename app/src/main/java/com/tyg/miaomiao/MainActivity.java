@@ -26,10 +26,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.tyg.miaomiao.account.LoginActivity;
-import com.tyg.miaomiao.display.CameraVideoActivity;
+import com.tyg.miaomiao.display.photo.CameraVideoActivity;
 import com.tyg.miaomiao.display.ContactFragment;
 import com.tyg.miaomiao.display.GuangchangFragment;
 import com.tyg.miaomiao.display.MessageFragment;
+import com.tyg.miaomiao.display.photo.PhotoFragment;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
@@ -42,16 +43,20 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
 
     private Fragment xinxiangFragment;
     private Fragment contactFragment;
-    private Fragment photoFragment;
     private Fragment guangchangFragment;
+    private Fragment photoFragment;
+
+
     private ImageView xinxiangBtn;
     private ImageView contactBtn;
     private ImageView photoBtn;
     private ImageView guangchangBtn;
+
     private TextView messageText;
     private TextView contactText;
     private TextView photoText;
     private TextView guangchangText;
+
     private LinearLayout messageLayout;
     private LinearLayout contactLayout;
     private LinearLayout photoLayout;
@@ -86,6 +91,8 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
 //            finish();
 //            startActivity(new Intent(this, LoginActivity.class));
 //        }
+
+
         xinxiangBtn = findViewById(R.id.footer_message_icon);
         contactBtn = findViewById(R.id.footer_contact_icon);
         photoBtn = findViewById(R.id.footer_photo_icon);
@@ -174,24 +181,26 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 headerText.setText(contactText.getText());
                 break;
             case 2:
-//                startActivity(new Intent(MainActivity.this, PhotoFragment.class));
-//                if (photoFragment == null) {
-//                    photoFragment = new PhotoFragment();
-//                    fragmentTransaction.add(R.id.main_layout_frame, photoFragment);
-//                }
-//                fragmentTransaction.show(photoFragment);
-                photoBtn.setImageResource(R.drawable.photo_active);
-                photoText.setTextColor(Color.parseColor("#60008A"));
-                headerText.setText(photoText.getText());
-
+                //申请相机权限
                 requestPermission();
 
-                // todo  设置关闭 移动网络 ?
-                setDataConnectionState(this, false);
+//                if (photoFragment == null) {
+//                     photoFragment = new PhotoFragment();
+//                     fragmentTransaction.add(R.id.main_layout_frame, photoFragment);
+//                 }
+//                fragmentTransaction.show(photoFragment);
+//
+//
+//                photoBtn.setImageResource(R.drawable.photo_active);
+//                photoText.setTextColor(Color.parseColor("#60008A"));
+//                headerText.setText(photoText.getText());
 
+                // todo  设置关闭 移动网络 ?
+//                setDataConnectionState(this, false);
+
+                //todo 打开相机照相
                 Intent intentVideo = new Intent(this, CameraVideoActivity.class);
                 startActivity(intentVideo);
-
                 break;
             case 3:
                 if (guangchangFragment == null) {
@@ -243,7 +252,7 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 .onGranted(new Action() {
                     @Override
                     public void onAction(List<String> permissions) {
-                        Log.e("requestPermission", "用户给权限");
+                        Log.e("requestCAMERAPermission", "用户给权限");
                     }
                 })
 //                .onDenied(new Action() {

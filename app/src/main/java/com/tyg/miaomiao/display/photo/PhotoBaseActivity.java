@@ -1,4 +1,4 @@
-package com.tyg.miaomiao.display;
+package com.tyg.miaomiao.display.photo;
 
 
 import android.os.Build;
@@ -11,8 +11,6 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-
-import com.tyg.miaomiao.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -38,9 +36,10 @@ public abstract class PhotoBaseActivity extends AppCompatActivity {
         //去除标题栏
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         //去除状态栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutId());
+        //todo 报空指针
 //        getSupportActionBar().hide();
         bun = ButterKnife.bind(this);
         activity = this;

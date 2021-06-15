@@ -1,4 +1,4 @@
-package com.tyg.miaomiao.display;
+package com.tyg.miaomiao.display.photo;
 
 import android.content.Context;
 import android.hardware.Camera;
