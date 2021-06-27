@@ -35,9 +35,12 @@ public class MessageFragment extends Fragment {
         return view;
     }
     private void initMessage() {
-        Message friend1 = new Message(R.drawable.head_portrait, "麻豹",
-                    "汪汪汪", "20:15");
+        Message friend1 = new Message(R.drawable.mabao, "麻豹",
+                    "汪汪汪,汪汪", "20:15");
+        Message friend2 = new Message(R.drawable.doudou, "豆豆",
+                "我是豆豆，我通过了你的朋友眼中", "15:05");
         messageList.add(friend1);
+        messageList.add(friend2);
 //        for (int i=0;i<2;i++) {
 //            Message friend1 = new Message(R.drawable.head_portrait, "略略略",
 //                    "恩恩", "20:15");

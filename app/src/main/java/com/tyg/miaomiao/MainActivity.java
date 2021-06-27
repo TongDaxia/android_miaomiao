@@ -26,11 +26,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.tyg.miaomiao.account.LoginActivity;
-import com.tyg.miaomiao.display.photo.CameraVideoActivity;
 import com.tyg.miaomiao.display.ContactFragment;
 import com.tyg.miaomiao.display.GuangchangFragment;
 import com.tyg.miaomiao.display.MessageFragment;
-import com.tyg.miaomiao.display.photo.PhotoFragment;
+import com.tyg.miaomiao.display.photo.CameraVideoActivity;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
@@ -210,8 +209,8 @@ public class MainActivity extends BaseFragment implements View.OnClickListener {
                 fragmentTransaction.show(guangchangFragment);
                 guangchangBtn.setImageResource(R.drawable.guangchang_active);
                 //todo 颜色统一
-                guangchangText.setTextColor( Color.parseColor("#60008A"));
-                 headerText.setText(guangchangText.getText());
+                guangchangText.setTextColor(Color.parseColor("#60008A"));
+                headerText.setText(guangchangText.getText());
                 break;
         }
         fragmentTransaction.commit();
